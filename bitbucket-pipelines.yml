@@ -24,8 +24,7 @@ pipelines:
           script:
             - mvn clean install
             - mkdir files_to_deploy
-            - cp casp-authentication/target/casp-authentication-1.0-SNAPSHOT.jar files_to_deploy/
-            - cp casp-gateway/target/casp-gateway-1.0-SNAPSHOT.jar files_to_deploy/
+            - cp target/casp-service-registry-1.0-SNAPSHOT.jar files_to_deploy/
           artifacts:
             # when running the ng build the compiled content will be saved inside the dist/demo directory, now we archive it for the next step
             - files_to_deploy/*
