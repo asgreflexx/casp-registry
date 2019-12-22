@@ -37,7 +37,7 @@ pipelines:
             - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
 
             # check if you are allowed to log in
-            # - ssh dev_unleashit@v22019017762182298.nicesrv.de "echo \"hello world!\"" >/dev/null 2>&1
+            - ssh dev_unleashit@v22019017762182298.nicesrv.de "echo \"hello world!\"" >/dev/null 2>&1
 
 #            # Stop and remove the casp-gateway-authentication files
 #            - ssh dev_unleashit@v22019017762182298.nicesrv.de "/var/www/unleash-it/stop_services.sh casp-gateway-authentication" >/dev/null 2>&1
