@@ -22,7 +22,7 @@ pipelines:
           caches:
             - maven
           script:
-            - mvn clean install -DskipTest
+            - mvn clean install
             - mkdir files_to_deploy
             - cp target/casp-service-registry-1.0-SNAPSHOT.jar files_to_deploy/
           artifacts:
