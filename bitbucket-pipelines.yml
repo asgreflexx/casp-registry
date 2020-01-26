@@ -52,11 +52,37 @@ pipelines:
 
 
   custom: # Pipelines that can only be triggered manually
-    sonar:
-      - step:
-          script:
-            - echo "Manual triggers for Sonar are awesome!"
     deployment-to-prod:
       - step:
+          # It will compile the source and archive its content
+          name: build
+          caches:
+            - maven
           script:
-            - echo "Manual triggers for deployments are awesome!"
+            - mvn clean install
+            - mkdir files_to_deploy
+            - cp target/casp-service-registry-1.0-SNAPSHOT.jar files_to_deploy/
+          artifacts:
+            # when running the ng build the compiled content will be saved inside the dist/demo directory, now we archive it for the next step
+            - files_to_deploy/*
+
+            - step:
+                # It will deploy the content in unleash-it server
+                name: deploy
+                script:
+                  # install ssh client, case it doesn't exist
+                  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+
+                  # check if you are allowed to log in
+                  - ssh dev_unleashit@v22019017762182298.nicesrv.de "echo \"hello world!\"" >/dev/null 2>&1
+
+                  # Stop and remove the casp-service-registry files
+                  - ssh dev_unleashit@v22019017762182298.nicesrv.de "/var/www/unleash-it/stop_services.sh casp-service-registry" >/dev/null 2>&1
+                  - ssh dev_unleashit@v22019017762182298.nicesrv.de "rm -f /var/www/unleash-it/casp-service-registry-1.0-SNAPSHOT.jar" >/dev/null 2>&1
+
+                  # Copy and set the execution of the casp-service-registry files
+                  - scp ./files_to_deploy/*.jar dev_unleashit@v22019017762182298.nicesrv.de:/var/www/unleash-it/ >/dev/null 2>&1
+                  - ssh dev_unleashit@v22019017762182298.nicesrv.de "chmod +x /var/www/unleash-it/casp-service-registry-1.0-SNAPSHOT.jar" >/dev/null 2>&1
+
+                  # Start the casp-service-registry files
+                  - ssh dev_unleashit@v22019017762182298.nicesrv.de "/var/www/unleash-it/start_services.sh casp-service-registry" >/dev/null 2>&1
