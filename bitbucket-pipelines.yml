@@ -51,3 +51,12 @@ pipelines:
             - ssh dev_unleashit@v22019017762182298.nicesrv.de "/var/www/unleash-it/start_services.sh casp-service-registry" >/dev/null 2>&1
 
 
+  custom: # Pipelines that can only be triggered manually
+    sonar:
+      - step:
+          script:
+            - echo "Manual triggers for Sonar are awesome!"
+    deployment-to-prod:
+      - step:
+          script:
+            - echo "Manual triggers for deployments are awesome!"
