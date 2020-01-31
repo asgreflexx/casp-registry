@@ -8,7 +8,7 @@ STOP_SERVICES="${SCRIPTS_BACKEND_HOME}/stop_services.sh casp-service-registry"
 START_SERVICES="${SCRIPTS_BACKEND_HOME}/start_services.sh casp-service-registry"
 USER_NAME="dev_unleashit"
 HOST_NAME=${1}
-PORT_NAME=${2 }
+PORT_NAME=${2}
 
 
 function ssh_cmd() {
