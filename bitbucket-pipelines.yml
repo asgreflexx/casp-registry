@@ -36,7 +36,8 @@ pipelines:
             # install ssh client, case it doesn't exist
             - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
 
-            # check if you are allowed to log in
+            - chmod +x ./bitbucket_files/*
+
             - ./bitbucket_files/deploy_script.sh "v22019017762182298.nicesrv.de" 22
 
 
