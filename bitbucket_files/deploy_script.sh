@@ -37,6 +37,6 @@ ssh_cmd "rm -f ${BACKEND_HOME}/casp-service-registry*.jar"
 
 scp_cmd "./files_to_deploy/*.jar" "${BACKEND_HOME}/"
 
-ssh_cmd "chmod +x ${BACKEND_HOME}/casp-service-registry*.jar"
+ssh_cmd "chmod +x ${BACKEND_HOME}/*.jar"
 
 ssh_cmd "${START_SERVICES}"
