@@ -11,7 +11,7 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn clean install
+          - mvn clean install -q
 
   branches:
     # It will run only for developer
