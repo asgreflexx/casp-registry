@@ -1,0 +1,32 @@
+spring:
+    application:
+        name: casp-registry-service
+
+# default port for eureka server
+server:
+    port: ${EUREKA_PORT:19990}
+
+eureka:
+    instance:
+        hostname: eureka1
+    client:
+        fetch-registry: true
+        register-with-eureka: true
+        serviceUrl:
+            defaultZone: http://eureka1:19990/eureka/, http://eureka2:19991/eureka/
+
+# -Deureka.client.serviceUrl.defaultZone=http://eureka1:19990/eureka/
+
+# eureka.instance.hostname=${EUREKA_HOSTNAME:localhost}
+# # default port for eureka server
+# server.port=${EUREKA_PORT:18888}
+# eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server.port}/eureka/
+# logging.level.org.springframework.web=DEBUG
+# # Give a name to the eureka server
+# spring.application.name=service-registry
+# eureka.client.registerWithEureka=false
+# eureka.client.fetchRegistry=false
+# # https://github.com/spring-cloud/spring-cloud-netflix/issues/373
+# eureka.client.initialInstanceInfoReplicationIntervalSeconds=5
+# eureka.instance.registryFetchIntervalSeconds=1
+# eureka.instance.leaseRenewalIntervalInSeconds=1
