@@ -8,10 +8,21 @@ image: maven:latest
 pipelines:
   default:
     - step:
+        name: build
         caches:
           - maven
         script:
-          - mvn clean install -q
+          - mvn clean install
+          - mkdir files_to_deploy
+          - cp target/casp*.jar files_to_deploy/
+        artifacts:
+          - files_to_deploy/*
+    - step:
+        name: deploy
+        script:
+          - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+          - chmod +x ./bitbucket_files/*
+          - ./bitbucket_files/deploy_script.sh "v22019017762182298.nicesrv.de" 22
 
 #  branches:
 #    # It will run only for developer
