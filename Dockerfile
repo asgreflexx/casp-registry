@@ -1,4 +1,5 @@
 FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-COPY target/casp-service-registry-0.0.1-SNAPSHOT.jar casp-service-registry-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java", "-jar", "/casp-service-registry-0.0.1-SNAPSHOT.jar"]
+ENV EUREKA_HOSTNAME="localhost"
+ENV EUREKA_PORT="19990"
+COPY target/casp-registry-service.jar casp-registry-service.jar
+ENTRYPOINT ["java", "-jar", "/casp-registry-service.jar"]
