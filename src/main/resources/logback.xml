@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="HOME_LOG" value="./logs/casp-gateway-service.log"/>
+    <property name="HOME_LOG" value="./logs/casp-register-service.log"/>
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -31,7 +31,7 @@
     </appender>
 
     <logger name="casp.web.app" level="debug" additivity="false">
-        <appender-ref ref="FILE-ROLLING"/>
+       <!-- <appender-ref ref="FILE-ROLLING"/> -->
         <appender-ref ref="console"/>
     </logger>
 
