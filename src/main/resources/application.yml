@@ -1,14 +1,14 @@
 spring:
   application:
-    name: casp-registry-service
+    name: ${CASP_REGISTRY_HOSTNAME:casp-registry-service}
 
 # default port for eureka server
 server:
-  port: ${EUREKA_PORT:19990}
+  port: ${CASP_REGISTRY_PORT:19990}
 
 eureka:
   instance:
-    hostname: ${EUREKA_HOSTNAME:eureka1}
+    hostname: ${CASP_REGISTRY_HOSTNAME:casp-registry-service}
   client:
     fetch-registry: false
     register-with-eureka: false
