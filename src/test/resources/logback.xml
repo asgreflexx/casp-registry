@@ -3,14 +3,19 @@
 
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n"/>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <root level="info">
-        <appender-ref ref="CONSOLE"/>
+
+    <logger name="casp.web.app" level="error" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="console"/>
     </root>
 
 </configuration>

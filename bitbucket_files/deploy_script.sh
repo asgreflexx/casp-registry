@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -x
-APP_HOME="/var/www/unleash-it"
+# TODO This is used only for ba2
+APP_HOME="/var/www/ba2_microservices"
 SCRIPTS_HOME="${APP_HOME}/scripts"
-BACKEND_HOME="${APP_HOME}/backend"
-SCRIPTS_BACKEND_HOME="${SCRIPTS_HOME}/backend"
-STOP_SERVICES="${SCRIPTS_BACKEND_HOME}/stop_services.sh casp-service-registry"
-START_SERVICES="${SCRIPTS_BACKEND_HOME}/start_services.sh casp-service-registry"
+BACKEND_HOME="${APP_HOME}/backend/bin"
+FILE_NAME="casp-registry-service"
+EXECUTE_FILE_PATH="${BACKEND_HOME}/${FILE_NAME}.jar"
+#SCRIPTS_BACKEND_HOME="${SCRIPTS_HOME}/backend"
+#STOP_SERVICES="${SCRIPTS_BACKEND_HOME}/stop_services.sh casp-service-registry"
+#START_SERVICES="${SCRIPTS_BACKEND_HOME}/start_services.sh casp-service-registry"
 USER_NAME="dev_unleashit"
 HOST_NAME=${1}
 PORT_NAME=${2}
@@ -31,12 +34,12 @@ esac
 
 ssh_cmd "echo \"hello world!\""
 
-ssh_cmd "${STOP_SERVICES}"
+# ssh_cmd "${STOP_SERVICES}"
 
-ssh_cmd "rm -f ${BACKEND_HOME}/casp-service-registry*.jar"
+ssh_cmd "rm -f ${EXECUTE_FILE_PATH}"
 
 scp_cmd "./files_to_deploy/*.jar" "${BACKEND_HOME}/"
 
-ssh_cmd "chmod +x ${BACKEND_HOME}/*.jar"
+ssh_cmd "chmod +x ${EXECUTE_FILE_PATH}"
 
-ssh_cmd "${START_SERVICES}"
+# ssh_cmd "${START_SERVICES}"

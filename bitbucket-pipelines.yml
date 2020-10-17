@@ -8,6 +8,7 @@ image: maven:latest
 pipelines:
   default:
     - step:
+        name: build
         caches:
           - maven
         script:
@@ -15,7 +16,7 @@ pipelines:
 
   branches:
     # It will run only for developer
-    developer:
+    ba2/microservices:
       - step:
           # It will compile the source and archive its content
           name: build
@@ -24,7 +25,7 @@ pipelines:
           script:
             - mvn clean install
             - mkdir files_to_deploy
-            - cp target/casp-service-registry-1.0-SNAPSHOT.jar files_to_deploy/
+            - cp target/casp*.jar files_to_deploy/
           artifacts:
             # when running the ng build the compiled content will be saved inside the dist/demo directory, now we archive it for the next step
             - files_to_deploy/*
@@ -34,55 +35,4 @@ pipelines:
           name: deploy
           script:
             # install ssh client, case it doesn't exist
-            - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-
             - chmod +x ./bitbucket_files/*
-            - ./bitbucket_files/deploy_script.sh "v22019017762182298.nicesrv.de" 22
-
-
-  custom: # Pipelines that can only be triggered manually
-    deployment-to-prod:
-      - step:
-          # It will compile the source and archive its content
-          name: build
-          caches:
-            - maven
-          script:
-            - mvn clean install
-            - mkdir files_to_deploy
-            - cp target/casp-service-registry-1.0-SNAPSHOT.jar files_to_deploy/
-          artifacts:
-            # when running the ng build the compiled content will be saved inside the dist/demo directory, now we archive it for the next step
-            - files_to_deploy/*
-
-      - step:
-          # It will deploy the content in unleash-it server
-          name: deploy
-          script:
-            # install ssh client, case it doesn't exist
-            - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-
-            - chmod +x ./bitbucket_files/*
-            - ./bitbucket_files/deploy_script.sh "193.30.120.113" 2222
-
-    restart-register-dev:
-      - step:
-          # It will deploy the content in unleash-it server
-          name: restart-register
-          script:
-            # install ssh client, case it doesn't exist
-            - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-
-            - chmod +x ./bitbucket_files/*
-            - ./bitbucket_files/restart_services.sh "v22019017762182298.nicesrv.de" 22
-
-    restart-register-prod:
-      - step:
-          # It will deploy the content in unleash-it server
-          name: restart-register
-          script:
-            # install ssh client, case it doesn't exist
-            - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-
-            - chmod +x ./bitbucket_files/*
-            - ./bitbucket_files/restart_services.sh "193.30.120.113" 2222
