@@ -1,14 +1,10 @@
 spring:
   application:
-    name: ${CASP_REGISTRY_HOSTNAME:casp-registry-service}
-
-# default port for eureka server
+    name: registry
+# TODO this is not needed, this should be deleted on February
 server:
-  port: ${CASP_REGISTRY_PORT:19990}
-
+  port: 8761
 eureka:
-  instance:
-    hostname: ${CASP_REGISTRY_HOSTNAME:casp-registry-service}
   client:
-    fetch-registry: false
     register-with-eureka: false
+    fetch-registry: false

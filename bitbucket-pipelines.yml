@@ -12,27 +12,10 @@ pipelines:
         caches:
           - maven
         script:
-          - mvn clean install
-
-  branches:
-    # It will run only for developer
-    ba2/microservices:
-      - step:
-          # It will compile the source and archive its content
-          name: build
-          caches:
-            - maven
-          script:
-            - mvn clean install
-            - mkdir files_to_deploy
-            - cp target/casp*.jar files_to_deploy/
-          artifacts:
-            # when running the ng build the compiled content will be saved inside the dist/demo directory, now we archive it for the next step
-            - files_to_deploy/*
-
-      - step:
-          # It will deploy the content in unleash-it server
-          name: deploy
-          script:
-            # install ssh client, case it doesn't exist
-            - chmod +x ./bitbucket_files/*
+          - mvn -B verify
+          # TODO Docker should run only for develop and releases on February
+          - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+          - docker build -t lacribeiro11/registry:latest .
+          - docker push lacribeiro11/registry:latest
+        services:
+          - docker
