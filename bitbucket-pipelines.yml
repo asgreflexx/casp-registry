@@ -1,21 +1,40 @@
-# This is a sample build configuration for Java (Maven).
-# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
 image: maven:latest
-
-pipelines:
-  default:
-    - step:
-        name: build
+definitions:
+  step:
+    - step: &build
+        name: Build, test and keep the artifact
         caches:
           - maven
         script:
           - mvn -B verify
-          # TODO Docker should run only for develop and releases on February
+        artifacts:
+          - target/registry.jar
+
+    - step: &docker
+        name: Push into docker
+        script:
           - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
           - docker build -t lacribeiro11/registry:latest .
           - docker push lacribeiro11/registry:latest
         services:
           - docker
+
+    - step: &deploy
+        name: Deploy into unleash-it
+        script:
+          - pipe: atlassian/ssh-run:0.2.8
+            variables:
+              SSH_USER: $UNLEASHIT_USER
+              SERVER: $UNLEASHIT_IP
+              PORT: $UNLEASHIT_PORT
+              # TODO it should be the name of the server instead of stackdemo
+              COMMAND: ' docker service update stackdemo_registry'
+
+pipelines:
+  default:
+    - step: *build
+  branches:
+    develop:
+      - step: *build
+      - step: *docker
+      - step: *deploy
