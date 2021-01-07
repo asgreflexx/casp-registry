@@ -1,7 +1,6 @@
 spring:
   application:
     name: registry
-# TODO this is not needed, this should be deleted on February
 server:
   port: 8761
 eureka:
