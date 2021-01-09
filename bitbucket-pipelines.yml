@@ -28,7 +28,7 @@ definitions:
               SERVER: $UNLEASHIT_IP
               PORT: $UNLEASHIT_PORT
               # TODO it should be the name of the server instead of stackdemo
-              COMMAND: ' docker service update stackdemo_registry'
+              COMMAND: './docker-swarm/update_service.sh lacribeiro11 registry latest stackdemo'
 
 pipelines:
   default:
