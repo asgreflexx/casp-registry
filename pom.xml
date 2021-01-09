@@ -18,6 +18,7 @@
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+        <logstash-logback-encoder.version>6.6</logstash-logback-encoder.version>
     </properties>
 
     <dependencies>
@@ -32,6 +33,12 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
         </dependency>
     </dependencies>
 
