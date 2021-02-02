@@ -27,8 +27,7 @@ definitions:
               SSH_USER: $UNLEASHIT_USER
               SERVER: $UNLEASHIT_IP
               PORT: $UNLEASHIT_PORT
-              # TODO it should be the name of the server instead of stackdemo
-              COMMAND: './docker-swarm/update_service.sh lacribeiro11 registry latest stackdemo'
+              COMMAND: './docker-swarm/update_service.sh lacribeiro11 registry latest caspstack'
 
 pipelines:
   default:
