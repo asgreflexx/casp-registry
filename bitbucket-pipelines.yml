@@ -9,6 +9,14 @@ definitions:
           - mvn -B verify
         artifacts:
           - target/registry.jar
+          
+    - step: &sonar
+        name: SonarQube Analysis
+        caches:
+          - maven
+        script:
+          - mvn install -DskipTests sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.projectName=registry -Dsonar.login=$SONAR_TOKEN
+
 
     - step: &docker
         name: Push into docker
@@ -35,5 +43,6 @@ pipelines:
   branches:
     develop:
       - step: *build
+      - step: *sonar
       - step: *docker
       - step: *deploy
