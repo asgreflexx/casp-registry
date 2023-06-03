@@ -50,12 +50,6 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            removeMongoDbContainer()
-            junit testResults: '**/target/surefire-reports/TEST-*.xml', skipPublishingChecks: true
-        }
-    }
 }
 // TODO These functions should all be moved to the new pipeline library
 // https://github.com/asgreflexx/casp-utility-scripts/issues/3
