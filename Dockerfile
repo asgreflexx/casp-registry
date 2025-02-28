@@ -1,4 +1,4 @@
-FROM openjdk
+FROM openjdk:21
 
 RUN touch /logback.xml
 
