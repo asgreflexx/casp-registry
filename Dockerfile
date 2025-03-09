@@ -1,7 +1,5 @@
 FROM openjdk:21
 
-RUN touch /logback.xml
+COPY ./target/registry.jar /app.jar
 
-COPY ./target/registry.jar /registry.jar
-
-ENTRYPOINT ["/usr/bin/java", "-Dlogging.config=file:/logback.xml", "-jar", "/registry.jar"]
+ENTRYPOINT ["/usr/bin/java", "-jar", "/app.jar"]
