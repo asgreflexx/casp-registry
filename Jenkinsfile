@@ -39,6 +39,7 @@ pipeline {
             }
             steps {
                 updateAndRestartService(Environment.TEST, Service.REGISTRY)
+                checkIfServiceIsRunningInTestEnvironment(Service.REGISTRY)
             }
         }
     }
