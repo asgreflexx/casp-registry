@@ -15,6 +15,7 @@ pipeline {
 
     tools {
         maven "Default"
+        jdk "Default"
     }
 
     stages {
