@@ -19,6 +19,16 @@ pipeline {
     }
 
     stages {
+        stage('Check Branch') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'main') {
+                        currentBuild.result = 'ABORTED'
+                    }
+                }
+            }
+        }
+
         stage('Maven Build') {
             steps {
                 script {
