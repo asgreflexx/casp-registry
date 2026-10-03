@@ -10,7 +10,7 @@
     </parent>
     <groupId>casp-web-app</groupId>
     <artifactId>registry</artifactId>
-    <version>0.0.13</version>
+    <version>0.0.14-SNAPSHOT</version>
     <name>registry</name>
     <description>Demo project for Spring Boot</description>
 
