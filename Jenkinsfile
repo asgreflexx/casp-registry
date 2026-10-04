@@ -15,9 +15,20 @@ pipeline {
 
     tools {
         maven "Default"
+        jdk "Default"
     }
 
     stages {
+        stage('Check Branch') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'main') {
+                        currentBuild.result = 'ABORTED'
+                    }
+                }
+            }
+        }
+
         stage('Maven Build') {
             steps {
                 script {
